@@ -6,6 +6,7 @@ import vuetify from "./plugins/vuetify";
 import "vuetify/styles";
 import "@mdi/font/css/materialdesignicons.css";
 import "./assets/animations.css";
+import "./assets/swiperGlobalsStyle.css";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";

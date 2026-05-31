@@ -1,0 +1,6 @@
+.swiper-button-prev,
+.swiper-button-next {
+    svg {
+        width: 20% !important;
+    }
+}
