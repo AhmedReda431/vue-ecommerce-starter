@@ -1,31 +1,29 @@
 <
 <template>
   <div class="swiper-carousel-wrapper">
+    <!-- Main Swiper -->
     <swiper
       :modules="modules"
-      :slides-per-view="slidesPerView"
-      :space-between="spaceBetween"
-      :loop="loop"
+      :slides-per-view="1"
+      :space-between="0"
+      :loop="false"
       :autoplay="autoplayConfig"
       :pagination="paginationConfig"
       :navigation="navigationConfig"
       :effect="effect"
-      :coverflow-effect="coverflowEffect"
-      :thumbs="thumbsConfig"
-      :breakpoints="breakpoints"
       :grab-cursor="true"
       :touch-ratio="1"
       :simulate-touch="true"
       :allow-touch-move="true"
-      :direction="direction"
-      @swiper="onSwiper"
+      :thumbs="{ swiper: thumbsSwiper }"
+      @swiper="setMainSwiper"
       @slideChange="onSlideChange"
-      class="my-swiper"
+      class="main-swiper"
     >
       <swiper-slide
         v-for="(slide, index) in slides"
         :key="index"
-        class="swiper-slide"
+        class="main-slide"
       >
         <slot :slide="slide" :index="index" :active="index === activeIndex">
           <div
@@ -64,16 +62,23 @@
       </swiper-slide>
     </swiper>
 
-    <!-- Thumbnails (if enabled) -->
-    <div v-if="showThumbs" class="swiper-thumbs">
+    <!-- Thumbnails Swiper -->
+    <div v-if="showThumbs" class="thumbs-wrapper">
       <swiper
         :modules="[Thumbs]"
         :slides-per-view="4"
         :space-between="10"
         :watch-slides-progress="true"
         :allow-touch-move="true"
+        :slide-to-clicked-slide="true"
         @swiper="setThumbsSwiper"
-        class="my-thumbs"
+        class="thumbs-swiper"
+        :breakpoints="{
+          320: { slidesPerView: 3, spaceBetween: 8 },
+          480: { slidesPerView: 4, spaceBetween: 10 },
+          640: { slidesPerView: 5, spaceBetween: 10 },
+          768: { slidesPerView: 6, spaceBetween: 12 },
+        }"
       >
         <swiper-slide
           v-for="(slide, index) in slides"
@@ -83,9 +88,9 @@
         >
           <v-img
             :src="slide.thumbnail || slide.image"
-            height="60"
+            height="70"
             cover
-            class="rounded-lg"
+            class="rounded-lg thumb-image"
           />
         </swiper-slide>
       </swiper>
@@ -101,7 +106,6 @@ import {
   Pagination,
   Autoplay,
   EffectFade,
-  EffectCoverflow,
   Thumbs,
 } from "swiper/modules";
 
@@ -110,29 +114,13 @@ const props = defineProps({
     type: Array,
     required: true,
   },
-  slidesPerView: {
-    type: [Number, String],
-    default: 1,
-  },
-  spaceBetween: {
-    type: Number,
-    default: 0,
-  },
-  loop: {
-    type: Boolean,
-    default: true,
-  },
   autoplay: {
     type: [Boolean, Object],
-    default: () => ({
-      delay: 5000,
-      disableOnInteraction: false,
-      pauseOnMouseEnter: true,
-    }),
+    default: false,
   },
   pagination: {
     type: [Boolean, Object],
-    default: () => ({ clickable: true, dynamicBullets: true }),
+    default: () => ({ clickable: true }),
   },
   navigation: {
     type: [Boolean, Object],
@@ -140,51 +128,27 @@ const props = defineProps({
   },
   effect: {
     type: String,
-    default: "slide", // slide, fade, coverflow
-  },
-  coverflowEffect: {
-    type: Object,
-    default: () => ({
-      rotate: 50,
-      stretch: 0,
-      depth: 100,
-      modifier: 1,
-      slideShadows: true,
-    }),
+    default: "slide",
   },
   showThumbs: {
     type: Boolean,
     default: false,
   },
-  breakpoints: {
-    type: Object,
-    default: () => ({
-      320: { slidesPerView: 1, spaceBetween: 10 },
-      640: { slidesPerView: 1, spaceBetween: 20 },
-      768: { slidesPerView: 1, spaceBetween: 30 },
-      1024: { slidesPerView: 1, spaceBetween: 40 },
-    }),
-  },
   slideHeight: {
     type: String,
-    default: "500px",
-  },
-  direction: {
-    type: String,
-    default: "horizontal",
+    default: "400px",
   },
 });
 
-const emit = defineEmits(["change", "swiper"]);
+const emit = defineEmits(["change"]);
 
 const activeIndex = ref(0);
+const mainSwiper = ref(null);
 const thumbsSwiper = ref(null);
 
 const modules = computed(() => {
-  const mods = [Navigation, Pagination, Autoplay];
+  const mods = [Navigation, Pagination, Autoplay, Thumbs];
   if (props.effect === "fade") mods.push(EffectFade);
-  if (props.effect === "coverflow") mods.push(EffectCoverflow);
-  if (props.showThumbs) mods.push(Thumbs);
   return mods;
 });
 
@@ -205,13 +169,12 @@ const navigationConfig = computed(() => {
   return typeof props.navigation === "object" ? props.navigation : true;
 });
 
-const thumbsConfig = computed(() => {
-  if (!props.showThumbs || !thumbsSwiper.value) return undefined;
-  return { swiper: thumbsSwiper.value };
-});
+const setMainSwiper = (swiper) => {
+  mainSwiper.value = swiper;
+};
 
-const onSwiper = (swiper) => {
-  emit("swiper", swiper);
+const setThumbsSwiper = (swiper) => {
+  thumbsSwiper.value = swiper;
 };
 
 const onSlideChange = (swiper) => {
@@ -219,14 +182,13 @@ const onSlideChange = (swiper) => {
   emit("change", swiper.activeIndex);
 };
 
-const setThumbsSwiper = (swiper) => {
-  thumbsSwiper.value = swiper;
-};
-
 watch(
   () => props.slides,
   () => {
     activeIndex.value = 0;
+    if (mainSwiper.value) {
+      mainSwiper.value.slideTo(0);
+    }
   },
   { deep: true },
 );
@@ -238,13 +200,13 @@ watch(
   width: 100%;
 }
 
-.my-swiper {
+.main-swiper {
   width: 100%;
   border-radius: 16px;
   overflow: hidden;
 }
 
-.swiper-slide {
+.main-slide {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -290,35 +252,45 @@ watch(
 }
 
 /* Thumbnails */
-.swiper-thumbs {
+.thumbs-wrapper {
   margin-top: 16px;
+  padding: 0 4px;
 }
 
-.my-thumbs .swiper-slide {
-  opacity: 0.6;
+.thumbs-swiper {
+  padding: 8px 0;
+}
+
+.thumb-slide {
   cursor: pointer;
-  transition:
-    opacity 0.3s,
-    transform 0.3s;
+  opacity: 0.6;
+  transition: all 0.3s ease;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 2px solid transparent;
 }
 
-.my-thumbs .swiper-slide.active,
-.my-thumbs .swiper-slide-thumb-active {
+.thumb-slide.active {
   opacity: 1;
+  border-color: var(--v-theme-primary);
   transform: scale(1.05);
 }
 
-.my-thumbs .swiper-slide img {
-  border-radius: 8px;
+.thumb-image {
+  transition: transform 0.3s;
 }
 
-/* Swiper navigation buttons */
+.thumb-slide:hover .thumb-image {
+  transform: scale(1.1);
+}
+
+/* Swiper navigation */
 :deep(.swiper-button-next),
 :deep(.swiper-button-prev) {
   color: white;
   background: rgba(0, 0, 0, 0.5);
-  width: 48px;
-  height: 48px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   transition: all 0.3s;
 }
@@ -331,14 +303,14 @@ watch(
 
 :deep(.swiper-button-next::after),
 :deep(.swiper-button-prev::after) {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
 }
 
-/* Swiper pagination */
+/* Pagination */
 :deep(.swiper-pagination-bullet) {
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   background: rgba(255, 255, 255, 0.5);
   opacity: 1;
   transition: all 0.3s;
@@ -347,7 +319,7 @@ watch(
 :deep(.swiper-pagination-bullet-active) {
   background: var(--v-theme-primary);
   width: 24px;
-  border-radius: 6px;
+  border-radius: 5px;
 }
 
 /* Responsive */
@@ -364,13 +336,18 @@ watch(
     padding: 20px;
   }
 
-  :deep(.swiper-button-next),
-  :deep(.swiper-button-prev) {
-    display: none;
+  .default-slide {
+    height: 250px !important;
   }
 
-  .default-slide {
-    height: 300px !important;
+  :deep(.swiper-button-next),
+  :deep(.swiper-button-prev) {
+    width: 36px;
+    height: 36px;
+  }
+
+  .thumb-slide {
+    opacity: 0.8;
   }
 }
 </style>

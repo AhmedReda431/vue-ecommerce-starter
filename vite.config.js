@@ -13,5 +13,22 @@ export default defineConfig({
   server: {
     port: 3000,
     open: true,
+    hmr: {
+      overlay: true,
+    },
+  },
+  build: {
+    sourcemap: true,
+  },
+  optimizeDeps: {
+    include: [
+      "vue",
+      "vue-router",
+      "pinia",
+      "vuetify",
+      "axios",
+      "sweetalert2",
+      "swiper",
+    ],
   },
 });

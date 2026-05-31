@@ -82,14 +82,20 @@
         6. Product Gallery with Thumbnails
       </h2>
       <p class="text-grey mb-4">
-        Click thumbnails or swipe to navigate images.
+        Click thumbnails or swipe to navigate. Fully responsive.
       </p>
-      <SwiperCarousel
-        :slides="gallerySlides"
-        :show-thumbs="true"
-        :autoplay="false"
-        slide-height="400px"
-      />
+
+      <v-row>
+        <v-col cols="12" md="12" lg="12" class="mx-auto">
+          <SwiperCarousel
+            :slides="gallerySlides"
+            :show-thumbs="true"
+            :autoplay="false"
+            :pagination="false"
+            slide-height="400px"
+          />
+        </v-col>
+      </v-row>
     </section>
 
     <!-- Example 7: Auto-scrolling Brands -->
@@ -243,39 +249,38 @@ const coverflowSlides = ref([
 const gallerySlides = ref([
   {
     image:
-      "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&h=500&fit=crop",
     thumbnail:
-      "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=100&h=60&fit=crop",
+      "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=150&h=100&fit=crop",
   },
   {
     image:
-      "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&h=500&fit=crop",
     thumbnail:
-      "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=100&h=60&fit=crop",
+      "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=150&h=100&fit=crop",
   },
   {
     image:
-      "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=800&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=800&h=500&fit=crop",
     thumbnail:
-      "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=100&h=60&fit=crop",
+      "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=150&h=100&fit=crop",
   },
   {
     image:
-      "https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=800&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=800&h=500&fit=crop",
     thumbnail:
-      "https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=100&h=60&fit=crop",
+      "https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=150&h=100&fit=crop",
   },
 ]);
-
 const brandSlides = ref([
-  { image: "https://via.placeholder.com/150x60?text=Apple" },
-  { image: "https://via.placeholder.com/150x60?text=Samsung" },
-  { image: "https://via.placeholder.com/150x60?text=Nike" },
-  { image: "https://via.placeholder.com/150x60?text=Adidas" },
-  { image: "https://via.placeholder.com/150x60?text=Sony" },
-  { image: "https://via.placeholder.com/150x60?text=LG" },
-  { image: "https://via.placeholder.com/150x60?text=Dell" },
-  { image: "https://via.placeholder.com/150x60?text=HP" },
+  { image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&h=500&fit=crop" },
+  { image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&h=500&fit=crop" },
+  { image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&h=500&fit=crop" },
+  { image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&h=500&fit=crop" },
+  { image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&h=500&fit=crop" },
+  { image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&h=500&fit=crop" },
+  { image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&h=500&fit=crop" },
+  { image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&h=500&fit=crop" },
 ]);
 
 const verticalSlides = ref([

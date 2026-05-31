@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { useAuthStore } from "@/stores/auth";
 
-// Import components directly (not lazy) for auth pages
+// Direct imports for auth pages to prevent white screen
 import LoginView from "@/views/LoginView.vue";
 import RegisterView from "@/views/RegisterView.vue";
 import ForgotPasswordView from "@/views/ForgotPasswordView.vue";
@@ -78,8 +78,14 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
-  scrollBehavior() {
-    return { top: 0 };
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition;
+    }
+    if (to.hash) {
+      return { el: to.hash, behavior: "smooth" };
+    }
+    return { top: 0, behavior: "smooth" };
   },
 });
 
@@ -93,6 +99,12 @@ router.beforeEach((to, from, next) => {
   } else {
     next();
   }
+});
+
+// Fix for white screen - force page refresh on route error
+router.onError((error) => {
+  console.error("Router error:", error);
+  window.location.reload();
 });
 
 export default router;

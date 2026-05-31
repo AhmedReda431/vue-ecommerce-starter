@@ -99,9 +99,12 @@
             @click.stop="addToCart"
             elevation="2"
             rounded="lg"
+            size="small"
+            class="text-caption text-sm-body-2"
           >
-            <v-icon start>mdi-cart-plus</v-icon>
-            Add to Cart
+            <v-icon start size="small">mdi-cart-plus</v-icon>
+            <span class="d-none d-sm-inline">Add to Cart</span>
+            <span class="d-sm-none">Add</span>
           </v-btn>
         </div>
 
@@ -115,12 +118,10 @@
                 variant="outlined"
                 color="primary"
                 density="comfortable"
+                class="qty-btn"
                 @click.stop="decrementQty"
               />
-              <span
-                class="mx-2 text-body-1 font-weight-bold"
-                style="min-width: 28px; text-align: center"
-              >
+              <span class="mx-2 text-body-2 font-weight-bold qty-text">
                 {{ cartItemQuantity }}
               </span>
               <v-btn
@@ -129,6 +130,7 @@
                 variant="outlined"
                 color="primary"
                 density="comfortable"
+                class="qty-btn"
                 @click.stop="incrementQty"
               />
             </div>
@@ -138,6 +140,7 @@
               color="error"
               variant="text"
               density="comfortable"
+              class="delete-btn"
               @click.stop="removeFromCart"
             />
           </div>
@@ -145,12 +148,14 @@
             color="success"
             variant="tonal"
             block
-            size="small"
+            size="x-small"
             to="/cart"
             prepend-icon="mdi-cart-check"
             rounded="lg"
+            class="text-caption"
           >
-            In Cart
+            <span class="d-none d-sm-inline">In Cart</span>
+            <span class="d-sm-none">Cart</span>
           </v-btn>
         </div>
       </div>
@@ -245,5 +250,44 @@ const removeFromCart = () => {
   border: 1px solid rgba(0, 0, 0, 0.12);
   border-radius: 10px;
   padding: 2px 6px;
+}
+.qty-btn {
+  min-width: 24px !important;
+  width: 24px !important;
+  height: 24px !important;
+}
+.qty-text {
+  min-width: 20px;
+  text-align: center;
+  font-size: 0.85rem;
+}
+.delete-btn {
+  min-width: 28px !important;
+  width: 28px !important;
+  height: 28px !important;
+}
+
+/* Mobile responsive */
+@media (max-width: 360px) {
+  .product-card .v-card-title {
+    font-size: 0.85rem !important;
+  }
+  .product-card .v-card-subtitle {
+    font-size: 0.7rem !important;
+  }
+  .qty-btn {
+    min-width: 20px !important;
+    width: 20px !important;
+    height: 20px !important;
+  }
+  .qty-text {
+    font-size: 0.75rem;
+    min-width: 16px;
+  }
+  .delete-btn {
+    min-width: 24px !important;
+    width: 24px !important;
+    height: 24px !important;
+  }
 }
 </style>
