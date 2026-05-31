@@ -6,15 +6,12 @@ import vuetify from "./plugins/vuetify";
 import "vuetify/styles";
 import "@mdi/font/css/materialdesignicons.css";
 import "./assets/animations.css";
-
-// Swiper CSS
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/effect-fade";
 import "swiper/css/effect-coverflow";
 import "swiper/css/thumbs";
-
 import "./plugins/sweetalert";
 
 const app = createApp(App);

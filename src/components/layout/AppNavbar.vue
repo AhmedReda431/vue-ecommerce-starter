@@ -2,7 +2,7 @@
 <template>
   <v-app-bar
     app
-    color="primary"
+    :color="themeStore.isDark ? 'grey-darken-4' : 'primary'"
     dark
     elevate-on-scroll
     scroll-behavior="elevate"
@@ -37,12 +37,10 @@
     <!-- Desktop Nav -->
     <template v-if="!mobile">
       <v-btn variant="text" to="/" prepend-icon="mdi-home">Home</v-btn>
-
-      <!-- In the desktop nav menu -->
       <v-menu open-on-hover>
         <template v-slot:activator="{ props }">
-          <v-btn variant="text" v-bind="props" prepend-icon="mdi-view-carousel"
-            >Components</v-btn
+          <v-btn variant="text" v-bind="props" prepend-icon="mdi-shopping"
+            >Shop</v-btn
           >
         </template>
         <v-list density="compact" rounded="lg">
@@ -66,6 +64,16 @@
     </template>
 
     <v-spacer v-if="!mobile" />
+
+    <!-- Dark Mode Toggle -->
+    <v-btn
+      icon
+      class="mr-2"
+      @click="themeStore.toggle"
+      :title="themeStore.label"
+    >
+      <v-icon>{{ themeStore.icon }}</v-icon>
+    </v-btn>
 
     <!-- Cart -->
     <v-btn icon to="/cart" class="mr-2">
@@ -123,6 +131,13 @@
         </v-list-item>
         <v-divider />
         <v-list-item
+          @click="themeStore.toggle"
+          prepend-icon="mdi-theme-light-dark"
+        >
+          <v-list-item-title>{{ themeStore.label }}</v-list-item-title>
+        </v-list-item>
+        <v-divider />
+        <v-list-item
           @click="handleLogout"
           prepend-icon="mdi-logout"
           color="error"
@@ -148,6 +163,11 @@
         title="Infinite Scroll"
       />
       <v-list-item
+        to="/carousels"
+        prepend-icon="mdi-view-carousel"
+        title="Carousel Examples"
+      />
+      <v-list-item
         to="/cart"
         prepend-icon="mdi-cart"
         :title="`Cart (${cartStore.totalItems})`"
@@ -163,6 +183,12 @@
         to="/profile"
         prepend-icon="mdi-account"
         title="Profile"
+      />
+      <v-divider />
+      <v-list-item
+        @click="themeStore.toggle"
+        prepend-icon="mdi-theme-light-dark"
+        :title="themeStore.label"
       />
       <v-divider />
       <v-list-item
@@ -194,6 +220,7 @@ import { useRouter } from "vue-router";
 import { useAuthStore } from "@/stores/auth";
 import { useCartStore } from "@/stores/cart";
 import { useFavoritesStore } from "@/stores/favorites";
+import { useThemeStore } from "@/stores/theme";
 import Swal from "sweetalert2";
 
 const { mobile } = useDisplay();
@@ -201,6 +228,7 @@ const router = useRouter();
 const authStore = useAuthStore();
 const cartStore = useCartStore();
 const favoritesStore = useFavoritesStore();
+const themeStore = useThemeStore();
 
 const drawer = ref(false);
 const searchQuery = ref("");

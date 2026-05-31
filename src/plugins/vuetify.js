@@ -12,7 +12,7 @@ export default createVuetify({
     sets: { mdi },
   },
   theme: {
-    defaultTheme: "light",
+    defaultTheme: localStorage.getItem("theme") || "light",
     themes: {
       light: {
         colors: {
@@ -23,6 +23,21 @@ export default createVuetify({
           info: "#2196F3",
           success: "#4CAF50",
           warning: "#FFC107",
+          background: "#FFFFFF",
+          surface: "#FFFFFF",
+        },
+      },
+      dark: {
+        colors: {
+          primary: "#90CAF9",
+          secondary: "#B0BEC5",
+          accent: "#448AFF",
+          error: "#EF5350",
+          info: "#42A5F5",
+          success: "#66BB6A",
+          warning: "#FFCA28",
+          background: "#121212",
+          surface: "#1E1E1E",
         },
       },
     },
