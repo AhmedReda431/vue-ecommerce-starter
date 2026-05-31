@@ -1,6 +1,11 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { useAuthStore } from "@/stores/auth";
 
+// Import components directly (not lazy) for auth pages
+import LoginView from "@/views/LoginView.vue";
+import RegisterView from "@/views/RegisterView.vue";
+import ForgotPasswordView from "@/views/ForgotPasswordView.vue";
+
 const routes = [
   {
     path: "/",
@@ -10,19 +15,19 @@ const routes = [
   {
     path: "/login",
     name: "login",
-    component: () => import("@/views/LoginView.vue"),
+    component: LoginView,
     meta: { guest: true },
   },
   {
     path: "/register",
     name: "register",
-    component: () => import("@/views/RegisterView.vue"),
+    component: RegisterView,
     meta: { guest: true },
   },
   {
     path: "/forgot-password",
     name: "forgot-password",
-    component: () => import("@/views/ForgotPasswordView.vue"),
+    component: ForgotPasswordView,
     meta: { guest: true },
   },
   {
@@ -62,6 +67,11 @@ const routes = [
     name: "profile",
     component: () => import("@/views/ProfileView.vue"),
     meta: { requiresAuth: true },
+  },
+  {
+    path: "/carousels",
+    name: "carousels",
+    component: () => import("@/views/CarouselExamplesView.vue"),
   },
 ];
 

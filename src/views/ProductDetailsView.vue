@@ -19,7 +19,7 @@
     <v-row v-else-if="productsStore.currentProduct" class="animate-fadeInUp">
       <!-- Images -->
       <v-col cols="12" md="6">
-        <v-card class="overflow-hidden rounded-xl">
+        <v-card class="overflow-hidden rounded-xl" elevation="4">
           <v-img
             :src="
               productsStore.currentProduct.image ||
@@ -126,96 +126,121 @@
 
         <v-divider class="mb-6" />
 
-        <!-- Quantity / Cart Controls -->
-        <div class="d-flex align-center mb-6 flex-wrap">
-          <span class="text-subtitle-1 font-weight-bold mr-4">Quantity:</span>
-
-          <template v-if="isInCart">
-            <div class="d-flex align-center quantity-box">
-              <v-btn
-                icon="mdi-minus"
-                size="small"
-                variant="outlined"
-                color="primary"
-                @click="decrementQty"
-              />
-              <span
-                class="mx-4 text-h6 font-weight-bold"
-                style="min-width: 40px; text-align: center"
+        <!-- CART CONTROLS -->
+        <div class="mb-6">
+          <!-- NOT IN CART: Show Add controls -->
+          <div v-if="!isInCart">
+            <div class="d-flex align-center mb-4">
+              <span class="text-subtitle-1 font-weight-bold mr-4"
+                >Quantity:</span
               >
-                {{ cartItemQuantity }}
-              </span>
-              <v-btn
-                icon="mdi-plus"
-                size="small"
-                variant="outlined"
-                color="primary"
-                @click="incrementQty"
-              />
+              <div class="d-flex align-center quantity-box">
+                <v-btn
+                  icon="mdi-minus"
+                  size="small"
+                  variant="outlined"
+                  color="primary"
+                  :disabled="quantity <= 1"
+                  @click="quantity--"
+                />
+                <span
+                  class="mx-4 text-h6 font-weight-bold"
+                  style="min-width: 40px; text-align: center"
+                >
+                  {{ quantity }}
+                </span>
+                <v-btn
+                  icon="mdi-plus"
+                  size="small"
+                  variant="outlined"
+                  color="primary"
+                  @click="quantity++"
+                />
+              </div>
             </div>
             <v-btn
-              color="error"
-              variant="text"
-              class="ml-4"
-              prepend-icon="mdi-delete"
-              @click="removeFromCart"
+              color="primary"
+              size="x-large"
+              prepend-icon="mdi-cart-plus"
+              @click="addToCart"
+              class="flex-grow-1"
+              elevation="4"
+              rounded="lg"
+              block
             >
-              Remove
+              Add to Cart
             </v-btn>
-          </template>
+          </div>
 
-          <template v-else>
-            <div class="d-flex align-center quantity-box">
-              <v-btn
-                icon="mdi-minus"
-                size="small"
-                variant="outlined"
-                color="primary"
-                @click="quantity > 1 ? quantity-- : null"
-              />
-              <span
-                class="mx-4 text-h6 font-weight-bold"
-                style="min-width: 40px; text-align: center"
+          <!-- IN CART: Show Update + Remove controls -->
+          <div v-else class="animate-fadeIn">
+            <div class="d-flex align-center mb-4">
+              <span class="text-subtitle-1 font-weight-bold mr-4"
+                >In Cart:</span
               >
-                {{ quantity }}
-              </span>
+              <div class="d-flex align-center quantity-box">
+                <v-btn
+                  icon="mdi-minus"
+                  size="small"
+                  variant="outlined"
+                  color="primary"
+                  @click="decrementQty"
+                />
+                <span
+                  class="mx-4 text-h6 font-weight-bold"
+                  style="min-width: 40px; text-align: center"
+                >
+                  {{ cartItemQuantity }}
+                </span>
+                <v-btn
+                  icon="mdi-plus"
+                  size="small"
+                  variant="outlined"
+                  color="primary"
+                  @click="incrementQty"
+                />
+              </div>
               <v-btn
-                icon="mdi-plus"
-                size="small"
-                variant="outlined"
-                color="primary"
-                @click="quantity++"
-              />
+                color="error"
+                variant="text"
+                class="ml-4"
+                prepend-icon="mdi-delete"
+                @click="removeFromCart"
+                rounded="lg"
+              >
+                Remove
+              </v-btn>
             </div>
-          </template>
+            <v-alert
+              color="success"
+              variant="tonal"
+              class="mb-4"
+              rounded="lg"
+              density="compact"
+            >
+              <div class="d-flex align-center">
+                <v-icon class="mr-2">mdi-check-circle</v-icon>
+                <span
+                  >This item is in your cart (Qty: {{ cartItemQuantity }})</span
+                >
+              </div>
+            </v-alert>
+            <v-btn
+              color="success"
+              size="x-large"
+              prepend-icon="mdi-cart-check"
+              to="/cart"
+              class="flex-grow-1"
+              elevation="4"
+              rounded="lg"
+              block
+            >
+              View in Cart
+            </v-btn>
+          </div>
         </div>
 
-        <div class="d-flex gap-4">
-          <v-btn
-            v-if="!isInCart"
-            color="primary"
-            size="x-large"
-            prepend-icon="mdi-cart-plus"
-            @click="addToCart"
-            class="flex-grow-1"
-            elevation="4"
-          >
-            Add to Cart
-          </v-btn>
-          <v-btn
-            v-else
-            color="success"
-            size="x-large"
-            prepend-icon="mdi-check-circle"
-            to="/cart"
-            class="flex-grow-1"
-            elevation="4"
-          >
-            View in Cart
-          </v-btn>
-        </div>
-
-        <v-list class="mt-6 bg-transparent" lines="two">
+        <v-list class="mt-6 bg-transparent" lines="two" rounded="lg">
           <v-list-item
             prepend-icon="mdi-truck-check"
             title="Free Shipping"
@@ -254,6 +279,7 @@ const quantity = ref(1);
 const isInCart = computed(() =>
   cartStore.isInCart(productsStore.currentProduct?.id),
 );
+
 const cartItemQuantity = computed(() => {
   const item = cartStore.items.find(
     (i) => i.id === productsStore.currentProduct?.id,
@@ -287,6 +313,7 @@ const decrementQty = () => {
 
 const removeFromCart = () => {
   cartStore.removeFromCart(productsStore.currentProduct.id);
+  quantity.value = 1;
 };
 
 onMounted(() => {

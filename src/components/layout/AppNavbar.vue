@@ -38,10 +38,11 @@
     <template v-if="!mobile">
       <v-btn variant="text" to="/" prepend-icon="mdi-home">Home</v-btn>
 
+      <!-- In the desktop nav menu -->
       <v-menu open-on-hover>
         <template v-slot:activator="{ props }">
-          <v-btn variant="text" v-bind="props" prepend-icon="mdi-shopping"
-            >Shop</v-btn
+          <v-btn variant="text" v-bind="props" prepend-icon="mdi-view-carousel"
+            >Components</v-btn
           >
         </template>
         <v-list density="compact" rounded="lg">
@@ -54,6 +55,11 @@
             to="/products/infinite"
             prepend-icon="mdi-infinity"
             title="Infinite Scroll"
+          />
+          <v-list-item
+            to="/carousels"
+            prepend-icon="mdi-view-carousel"
+            title="Carousel Examples"
           />
         </v-list>
       </v-menu>

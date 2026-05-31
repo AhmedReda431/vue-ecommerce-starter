@@ -35,8 +35,8 @@ export const useProductsStore = defineStore("products", () => {
   const fetchProducts = async (params = {}) => {
     loading.value = true;
     try {
-      const { data } = await productApi.getAll({ ...filters.value, ...params });
-      const rawProducts = data.products || data;
+      const { data } = await productApi.getAll(params);
+      const rawProducts = data.products || [];
       products.value = rawProducts.map(normalizeProduct);
       return products.value;
     } catch (err) {
@@ -74,7 +74,12 @@ export const useProductsStore = defineStore("products", () => {
 
   const fetchCategories = async () => {
     const { data } = await productApi.getCategories();
-    categories.value = Array.isArray(data) ? data : [];
+    categories.value = Array.isArray(data)
+      ? data.map((c) => {
+          if (typeof c === "string") return { slug: c, name: c };
+          return { slug: c.slug || c, name: c.name || c.slug || c };
+        })
+      : [];
   };
 
   const setFilters = (newFilters) => {
