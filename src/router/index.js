@@ -1,11 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { useAuthStore } from "@/stores/auth";
-
-// Direct imports for auth pages to prevent white screen
-import LoginView from "@/views/LoginView.vue";
-import RegisterView from "@/views/RegisterView.vue";
-import ForgotPasswordView from "@/views/ForgotPasswordView.vue";
-
 const routes = [
   {
     path: "/",
@@ -14,20 +8,20 @@ const routes = [
   },
   {
     path: "/login",
-    name: "login",
-    component: LoginView,
-    meta: { guest: true },
+    name: "Login",
+    component: () => import("@/views/LoginView.vue"),
+    meta: { guestOnly: true },
   },
   {
     path: "/register",
     name: "register",
-    component: RegisterView,
+    component: () => import("@/views/ProfileView.vue"),
     meta: { guest: true },
   },
   {
     path: "/forgot-password",
     name: "forgot-password",
-    component: ForgotPasswordView,
+    component: () => import("@/views/ForgotPasswordView.vue"),
     meta: { guest: true },
   },
   {
@@ -64,7 +58,7 @@ const routes = [
   },
   {
     path: "/profile",
-    name: "profile",
+    name: "Profile",
     component: () => import("@/views/ProfileView.vue"),
     meta: { requiresAuth: true },
   },

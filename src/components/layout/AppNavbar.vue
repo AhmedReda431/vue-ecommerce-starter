@@ -206,27 +206,27 @@
           <v-list-item
             to="/profile"
             prepend-icon="mdi-account-circle"
-            :title="$t('nav.profile')"
+            :title="$t('profile')"
             rounded="lg"
           />
-          <v-list-item
+          <!-- <v-list-item
             to="/favorites"
             prepend-icon="mdi-heart"
-            :title="$t('nav.favorites')"
+            :title="$t('favorites')"
             rounded="lg"
-          />
-          <v-divider class="my-2" />
-          <v-list-item
+          /> -->
+          <!-- <v-divider class="my-2" /> -->
+          <!-- <v-list-item
             @click="themeStore.toggle"
             prepend-icon="mdi-theme-light-dark"
             :title="themeStore.label"
             rounded="lg"
-          />
+          /> -->
           <v-divider class="my-2" />
           <v-list-item
             @click="handleLogout"
             prepend-icon="mdi-logout"
-            :title="$t('nav.logout')"
+            :title="$t('logout')"
             rounded="lg"
             color="error"
           />
