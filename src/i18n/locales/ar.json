@@ -1,0 +1,34 @@
+{
+    "app": {
+        "title": "A.R شوب",
+        "search": "ابحث في المنتجات..."
+    },
+    "nav": {
+        "home": "الرئيسية",
+        "shop": "المتجر",
+        "allProducts": "جميع المنتجات",
+        "infiniteScroll": "التمرير اللانهائي",
+        "carouselExamples": "أمثلة البطاقات الدوارة",
+        "cart": "سلة التسوق",
+        "favorites": "المفضلة",
+        "profile": "الملف الشخصي",
+        "login": "تسجيل الدخول",
+        "register": "إنشاء حساب",
+        "logout": "تسجيل الخروج"
+    },
+    "theme": {
+        "lightMode": "الوضع النهاري",
+        "darkMode": "الوضع الليلي",
+        "toggle": "تبديل المظهر"
+    },
+    "auth": {
+        "logoutConfirmTitle": "تسجيل الخروج؟",
+        "logoutConfirmText": "هل أنت متأكد أنك تريد تسجيل الخروج؟",
+        "logoutConfirmButton": "نعم، تسجيل الخروج",
+        "welcome_back": "مرحبًا بعودتك"
+    },
+    "lang": {
+        "english": "English",
+        "arabic": "العربية"
+    }
+}

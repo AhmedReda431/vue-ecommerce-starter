@@ -1,8 +1,10 @@
-// src/plugins/vuetify.js
 import { createVuetify } from "vuetify";
 import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
 import { aliases, mdi } from "vuetify/iconsets/mdi";
+import { en, ar } from "vuetify/locale";
+
+const savedLocale = localStorage.getItem("locale") || "en";
 
 export default createVuetify({
   components,
@@ -11,6 +13,11 @@ export default createVuetify({
     defaultSet: "mdi",
     aliases,
     sets: { mdi },
+  },
+  locale: {
+    locale: savedLocale,
+    fallback: "en",
+    messages: { en, ar },
   },
   theme: {
     defaultTheme: localStorage.getItem("theme") || "light",

@@ -1,0 +1,34 @@
+{
+    "app": {
+        "title": "A.R Shop",
+        "search": "Search products..."
+    },
+    "nav": {
+        "home": "Home",
+        "shop": "Shop",
+        "allProducts": "All Products",
+        "infiniteScroll": "Infinite Scroll",
+        "carouselExamples": "Carousel Examples",
+        "cart": "Cart",
+        "favorites": "Favorites",
+        "profile": "Profile",
+        "login": "Login",
+        "register": "Register",
+        "logout": "Logout"
+    },
+    "theme": {
+        "lightMode": "Light Mode",
+        "darkMode": "Dark Mode",
+        "toggle": "Toggle theme"
+    },
+    "auth": {
+        "logoutConfirmTitle": "Logout?",
+        "logoutConfirmText": "Are you sure you want to logout?",
+        "logoutConfirmButton": "Yes, logout",
+        "welcome_back": "Welcome Back"
+    },
+    "lang": {
+        "english": "English",
+        "arabic": "العربية"
+    }
+}

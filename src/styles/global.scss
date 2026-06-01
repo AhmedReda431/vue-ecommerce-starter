@@ -5,12 +5,44 @@
    GLOBAL LAYOUT
    ============================================ */
 html {
-  font-family: "Inter", system-ui, sans-serif;
-  -webkit-font-smoothing: antialiased;
+    font-family: "Inter", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
 }
 
 // Vuetify scrollbars
 .v-navigation-drawer,
 .v-main__wrap {
-  @include scrollbar-thin;
+    @include scrollbar-thin;
+}
+// RTL drawer fix
+html.rtl {
+    .v-navigation-drawer {
+        // Vuetify 3 handles most RTL automatically, but explicit overrides:
+        &--left {
+            left: auto;
+            right: 0;
+        }
+        &--right {
+            right: auto;
+            left: 0;
+        }
+    }
+
+    // Swiper arrows flip
+    .swiper-button-next {
+        right: auto;
+        left: 10px;
+    }
+    .swiper-button-prev {
+        left: auto;
+        right: 10px;
+    }
+}
+
+// Language fonts
+html.lang-ar {
+    font-family: "Cairo", "Tajawal", "Roboto", sans-serif;
+}
+html.lang-en {
+    font-family: "Inter", "Roboto", system-ui, sans-serif;
 }

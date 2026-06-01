@@ -1,3 +1,4 @@
+<
 <template>
   <v-app-bar
     app
@@ -13,7 +14,7 @@
       @click="$router.push('/')"
     >
       <v-icon start class="mr-2">mdi-store</v-icon>
-      A.R Shope
+      {{ $t("app.title") }}
     </v-toolbar-title>
 
     <v-spacer />
@@ -24,7 +25,7 @@
         v-model="searchQuery"
         density="compact"
         variant="solo"
-        placeholder="Search products..."
+        :placeholder="$t('app.search')"
         prepend-inner-icon="mdi-magnify"
         hide-details
         bg-color="rgba(255,255,255,0.15)"
@@ -36,34 +37,57 @@
 
     <!-- Desktop Nav -->
     <template v-if="!mobile">
-      <v-btn variant="text" to="/" prepend-icon="mdi-home">Home</v-btn>
+      <v-btn variant="text" to="/" prepend-icon="mdi-home">
+        {{ $t("nav.home") }}
+      </v-btn>
       <v-menu open-on-hover>
         <template v-slot:activator="{ props }">
-          <v-btn variant="text" v-bind="props" prepend-icon="mdi-shopping"
-            >Shop</v-btn
-          >
+          <v-btn variant="text" v-bind="props" prepend-icon="mdi-shopping">
+            {{ $t("nav.shop") }}
+          </v-btn>
         </template>
         <v-list density="compact" rounded="lg">
           <v-list-item
             to="/products"
             prepend-icon="mdi-view-grid"
-            title="All Products"
+            :title="$t('nav.allProducts')"
           />
           <v-list-item
             to="/products/infinite"
             prepend-icon="mdi-infinity"
-            title="Infinite Scroll"
+            :title="$t('nav.infiniteScroll')"
           />
           <v-list-item
             to="/carousels"
             prepend-icon="mdi-view-carousel"
-            title="Carousel Examples"
+            :title="$t('nav.carouselExamples')"
           />
         </v-list>
       </v-menu>
     </template>
 
     <v-spacer v-if="!mobile" />
+
+    <!-- Language Switcher -->
+    <v-menu offset-y>
+      <template v-slot:activator="{ props }">
+        <v-btn icon class="mr-2" v-bind="props">
+          <v-icon>mdi-translate</v-icon>
+        </v-btn>
+      </template>
+      <v-list density="compact" rounded="lg">
+        <v-list-item
+          @click="setLocale('en')"
+          :active="locale === 'en'"
+          title="English"
+        />
+        <v-list-item
+          @click="setLocale('ar')"
+          :active="locale === 'ar'"
+          title="العربية"
+        />
+      </v-list>
+    </v-menu>
 
     <!-- Dark Mode Toggle -->
     <v-btn
@@ -101,17 +125,18 @@
 
     <!-- Auth -->
     <template v-if="!authStore.isAuthenticated">
-      <v-btn variant="outlined" to="/login" class="mr-2" rounded="lg"
-        >Login</v-btn
-      >
+      <v-btn variant="outlined" to="/login" class="mr-2" rounded="lg">
+        {{ $t("nav.login") }}
+      </v-btn>
       <v-btn
         variant="elevated"
         color="white"
         class="text-primary"
         to="/register"
         rounded="lg"
-        >Sign Up</v-btn
       >
+        {{ $t("nav.register") }}
+      </v-btn>
     </template>
 
     <v-menu v-else>
@@ -124,10 +149,10 @@
       </template>
       <v-list rounded="lg">
         <v-list-item to="/profile" prepend-icon="mdi-account-circle">
-          <v-list-item-title>Profile</v-list-item-title>
+          <v-list-item-title>{{ $t("nav.profile") }}</v-list-item-title>
         </v-list-item>
         <v-list-item to="/favorites" prepend-icon="mdi-heart">
-          <v-list-item-title>Favorites</v-list-item-title>
+          <v-list-item-title>{{ $t("nav.favorites") }}</v-list-item-title>
         </v-list-item>
         <v-divider />
         <v-list-item
@@ -142,47 +167,58 @@
           prepend-icon="mdi-logout"
           color="error"
         >
-          <v-list-item-title>Logout</v-list-item-title>
+          <v-list-item-title>{{ $t("nav.logout") }}</v-list-item-title>
         </v-list-item>
       </v-list>
     </v-menu>
   </v-app-bar>
 
   <!-- Mobile Navigation Drawer -->
-  <v-navigation-drawer v-model="drawer" temporary v-if="mobile" location="left">
+  <v-navigation-drawer
+    v-model="drawer"
+    temporary
+    v-if="mobile"
+    :location="isRtl ? 'right' : 'left'"
+  >
     <v-list>
-      <v-list-item to="/" prepend-icon="mdi-home" title="Home" />
+      <v-list-item to="/" prepend-icon="mdi-home" :title="$t('nav.home')" />
       <v-list-item
         to="/products"
         prepend-icon="mdi-shopping"
-        title="All Products"
+        :title="$t('nav.allProducts')"
       />
       <v-list-item
         to="/products/infinite"
         prepend-icon="mdi-infinity"
-        title="Infinite Scroll"
+        :title="$t('nav.infiniteScroll')"
       />
       <v-list-item
         to="/carousels"
         prepend-icon="mdi-view-carousel"
-        title="Carousel Examples"
+        :title="$t('nav.carouselExamples')"
       />
       <v-list-item
         to="/cart"
         prepend-icon="mdi-cart"
-        :title="`Cart (${cartStore.totalItems})`"
+        :title="`${$t('nav.cart')} (${cartStore.totalItems})`"
       />
       <v-list-item
         v-if="authStore.isAuthenticated"
         to="/favorites"
         prepend-icon="mdi-heart"
-        title="Favorites"
+        :title="$t('nav.favorites')"
       />
       <v-list-item
         v-if="authStore.isAuthenticated"
         to="/profile"
         prepend-icon="mdi-account"
-        title="Profile"
+        :title="$t('nav.profile')"
+      />
+      <v-divider />
+      <v-list-item
+        @click="setLocale(locale === 'en' ? 'ar' : 'en')"
+        prepend-icon="mdi-translate"
+        :title="locale === 'en' ? 'العربية' : 'English'"
       />
       <v-divider />
       <v-list-item
@@ -195,19 +231,19 @@
         v-if="!authStore.isAuthenticated"
         to="/login"
         prepend-icon="mdi-login"
-        title="Login"
+        :title="$t('nav.login')"
       />
       <v-list-item
         v-if="!authStore.isAuthenticated"
         to="/register"
         prepend-icon="mdi-account-plus"
-        title="Register"
+        :title="$t('nav.register')"
       />
       <v-list-item
         v-if="authStore.isAuthenticated"
         @click="handleLogout"
         prepend-icon="mdi-logout"
-        title="Logout"
+        :title="$t('nav.logout')"
       />
     </v-list>
   </v-navigation-drawer>
@@ -221,6 +257,7 @@ import { useAuthStore } from "@/stores/auth";
 import { useCartStore } from "@/stores/cart";
 import { useFavoritesStore } from "@/stores/favorites";
 import { useThemeStore } from "@/stores/theme";
+import { useLocale } from "@/composables/useLocale";
 import Swal from "sweetalert2";
 
 const { mobile } = useDisplay();
@@ -229,6 +266,7 @@ const authStore = useAuthStore();
 const cartStore = useCartStore();
 const favoritesStore = useFavoritesStore();
 const themeStore = useThemeStore();
+const { locale, isRtl, setLocale } = useLocale();
 
 const drawer = ref(false);
 const searchQuery = ref("");
@@ -241,11 +279,11 @@ const handleSearch = () => {
 
 const handleLogout = async () => {
   const result = await Swal.fire({
-    title: "Logout?",
-    text: "Are you sure you want to logout?",
+    title: t("auth.logoutConfirmTitle"),
+    text: t("auth.logoutConfirmText"),
     icon: "question",
     showCancelButton: true,
-    confirmButtonText: "Yes, logout",
+    confirmButtonText: t("auth.logoutConfirmButton"),
   });
 
   if (result.isConfirmed) {
