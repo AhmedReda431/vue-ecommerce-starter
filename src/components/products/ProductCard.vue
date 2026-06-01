@@ -1,4 +1,3 @@
-<
 <template>
   <v-card
     class="product-card h-100 d-flex flex-column product-hover cursor-pointer"
