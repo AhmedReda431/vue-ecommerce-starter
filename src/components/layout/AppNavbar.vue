@@ -14,7 +14,7 @@
       @click="$router.push('/')"
     >
       <v-icon start class="mr-2">mdi-store</v-icon>
-      SHOPSTARTER
+      A.R Shope
     </v-toolbar-title>
 
     <v-spacer />
@@ -31,6 +31,7 @@
         bg-color="rgba(255,255,255,0.15)"
         class="search-field"
         @keyup.enter="handleSearch"
+        clearable
       />
     </v-sheet>
 
