@@ -1,4 +1,3 @@
-<
 <template>
   <v-list-item class="px-0 py-4">
     <template v-slot:prepend>

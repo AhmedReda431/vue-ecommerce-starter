@@ -1,4 +1,3 @@
-<
 <template>
   <div class="testimonial-carousel-wrapper">
     <BaseCarousel

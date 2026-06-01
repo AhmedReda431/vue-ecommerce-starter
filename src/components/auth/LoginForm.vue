@@ -1,4 +1,3 @@
-<
 <template>
   <v-form @submit.prevent="handleSubmit" ref="formRef" class="mt-2">
     <v-text-field

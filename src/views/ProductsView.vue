@@ -1,4 +1,3 @@
-<
 <template>
   <v-container class="py-8">
     <v-row>

@@ -1,4 +1,3 @@
-<
 <template>
   <v-card
     class="glass-card pa-6"

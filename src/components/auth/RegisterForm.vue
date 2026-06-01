@@ -1,4 +1,3 @@
-<
 <template>
   <v-card class="pa-4" max-width="450" width="100%">
     <v-card-title class="text-h5 font-weight-bold text-center mb-2">

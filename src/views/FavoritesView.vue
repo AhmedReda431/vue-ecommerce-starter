@@ -1,4 +1,3 @@
-<
 <template>
   <v-container class="py-8">
     <h1 class="text-h4 font-weight-bold mb-6">My Favorites</h1>

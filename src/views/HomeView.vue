@@ -1,4 +1,3 @@
-<
 <template>
   <div>
     <!-- Hero Carousel with Swiper -->

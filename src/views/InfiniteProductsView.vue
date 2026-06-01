@@ -1,4 +1,3 @@
-<
 <template>
   <v-container class="py-8">
     <div class="d-flex justify-space-between align-center mb-6">

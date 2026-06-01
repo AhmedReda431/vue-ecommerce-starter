@@ -1,4 +1,3 @@
-<
 <template>
   <div class="swiper-carousel-wrapper">
     <!-- Main Swiper -->

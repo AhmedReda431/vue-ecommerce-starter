@@ -1,4 +1,3 @@
-<
 <template>
   <div class="auth-bg fill-height d-flex align-center justify-center">
     <div class="floating-shape shape-1 animate-float" />

@@ -1,4 +1,3 @@
-<
 <template>
   <v-app :theme="themeStore.isDark ? 'dark' : 'light'">
     <AppNavbar />

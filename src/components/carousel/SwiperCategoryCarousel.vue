@@ -1,4 +1,3 @@
-<
 <template>
   <div class="category-carousel-wrapper">
     <div class="d-flex justify-space-between align-center mb-4">

@@ -1,4 +1,3 @@
-<
 <template>
   <v-footer class="bg-grey-darken-4 text-white pt-8">
     <v-container>
