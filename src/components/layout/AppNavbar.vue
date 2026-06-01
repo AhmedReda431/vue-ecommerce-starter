@@ -147,7 +147,7 @@
           :content="cartStore.totalItems"
           color="error"
           v-if="cartStore.totalItems > 0"
-          dot
+          size="small"
         >
           <v-icon>mdi-cart</v-icon>
         </v-badge>

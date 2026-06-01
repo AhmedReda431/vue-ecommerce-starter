@@ -162,7 +162,7 @@
               size="x-large"
               prepend-icon="mdi-cart-plus"
               @click="addToCart"
-              class="flex-grow-1"
+              class="flex-grow-1 add-to-cart-btn"
               elevation="4"
               rounded="lg"
               block

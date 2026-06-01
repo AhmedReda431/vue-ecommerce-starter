@@ -18,7 +18,6 @@ import AppFooter from "@/components/layout/AppFooter.vue";
 import { useLocale } from "@/composables/useLocale";
 // Sets html.dir, html.lang, html.class on mount
 useLocale();
-
 const authStore = useAuthStore();
 const themeStore = useThemeStore();
 

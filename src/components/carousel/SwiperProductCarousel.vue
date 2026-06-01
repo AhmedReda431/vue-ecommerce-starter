@@ -8,12 +8,14 @@
           variant="tonal"
           size="small"
           @click="swiperRef?.slidePrev()"
+          class="swiper-prev-button"
         />
         <v-btn
           icon="mdi-chevron-right"
           variant="tonal"
           size="small"
           @click="swiperRef?.slideNext()"
+          class="swiper-next-button"
         />
       </div>
     </div>
@@ -22,18 +24,16 @@
       :modules="[Navigation, Pagination, Autoplay]"
       :slides-per-view="slidesPerView"
       :space-between="16"
-      :loop="true"
-      :autoplay="{
-        delay: 4000,
-        disableOnInteraction: false,
-        pauseOnMouseEnter: true,
-      }"
+      
+      :autoplay="false"
       :grab-cursor="true"
       :touch-ratio="1"
       :simulate-touch="true"
       :allow-touch-move="true"
       :breakpoints="breakpoints"
       @swiper="onSwiper"
+      :loop="false"
+      :dir="swiperDir"
       class="product-swiper"
     >
       <swiper-slide
@@ -53,7 +53,7 @@ import { useDisplay } from "vuetify";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import ProductCard from "@/components/products/ProductCard.vue";
-
+const swiperDir = computed(() => document.documentElement.dir || "ltr");
 const props = defineProps({
   title: {
     type: String,

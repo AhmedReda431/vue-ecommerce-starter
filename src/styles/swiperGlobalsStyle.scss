@@ -40,3 +40,31 @@
     opacity: 0.35;
     pointer-events: none;
 }
+
+html.ltr {
+    .product-carousel-wrapper {
+        button.swiper-prev-button {
+            left: -5px;
+        }
+    }
+}
+html.rtl {
+    .product-carousel-wrapper , .category-carousel-wrapper {
+        button.swiper-prev-button {
+            left: -40px;
+        }
+        button.swiper-next-button {
+            left: 43px;
+        }
+    }
+}
+.swiper-slide.product-slide {
+    .qty-btn {
+        min-width: 5px !important;
+        width: 5px !important;
+        height: 20px !important;
+    }
+    .animate-fadeIn{
+        width: 93%;
+    }
+}

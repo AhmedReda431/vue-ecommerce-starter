@@ -99,7 +99,7 @@
             elevation="2"
             rounded="lg"
             size="small"
-            class="text-caption text-sm-body-2"
+            class="text-caption text-sm-body-2 add-to-cart-btn"
           >
             <v-icon start size="small">mdi-cart-plus</v-icon>
             <span class="d-none d-sm-inline">Add to Cart</span>
@@ -117,7 +117,7 @@
                 variant="outlined"
                 color="primary"
                 density="comfortable"
-                class="qty-btn"
+                class="qty-btn increment-btn"
                 @click.stop="decrementQty"
               />
               <span class="mx-2 text-body-2 font-weight-bold qty-text">
@@ -129,7 +129,7 @@
                 variant="outlined"
                 color="primary"
                 density="comfortable"
-                class="qty-btn"
+                class="qty-btn decrement-btn"
                 @click.stop="incrementQty"
               />
             </div>

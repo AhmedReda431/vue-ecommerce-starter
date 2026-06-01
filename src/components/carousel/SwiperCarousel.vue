@@ -5,7 +5,6 @@
       :modules="modules"
       :slides-per-view="1"
       :space-between="0"
-      :loop="false"
       :autoplay="autoplayConfig"
       :pagination="paginationConfig"
       :navigation="navigationConfig"
@@ -18,6 +17,8 @@
       @swiper="setMainSwiper"
       @slideChange="onSlideChange"
       class="main-swiper"
+      :loop="true"
+      :dir="swiperDir"
     >
       <swiper-slide
         v-for="(slide, index) in slides"
@@ -191,6 +192,7 @@ watch(
   },
   { deep: true },
 );
+const swiperDir = computed(() => document.documentElement.dir || "ltr");
 </script>
 
 <style scoped>
