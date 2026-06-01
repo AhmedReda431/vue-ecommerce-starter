@@ -15,13 +15,12 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        // Auto-injected into every SCSS file
+        // This injects into EVERY .scss file automatically
+        // CRITICAL: Never write @use "@/styles/variables" manually in any file
         additionalData: `
-          @use "@styles/variables" as *;
-          @use "@styles/mixins" as *;
+          @use "@/styles/variables" as *;
+          @use "@/styles/mixins" as *;
         `,
-        // Required for modern Sass module syntax (@use)
-        silenceDeprecations: ["legacy-js-api"],
       },
     },
   },

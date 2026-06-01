@@ -1,0 +1,42 @@
+.swiper-button-prev,
+.swiper-button-next {
+    svg {
+        width: 20% !important;
+    }
+}
+
+/* ============================================
+   SWIPER ARROWS (global override)
+   ============================================ */
+.swiper-button-next,
+.swiper-button-prev {
+    width: 44px;
+    height: 44px;
+    background: rgb(var(--v-theme-surface));
+    color: rgb(var(--v-theme-primary));
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    transition: all 0.2s ease;
+
+    &::after {
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    &:hover {
+        background: rgb(var(--v-theme-primary));
+        color: rgb(var(--v-theme-on-primary));
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        transform: scale(1.05);
+    }
+
+    &:active {
+        transform: scale(0.95);
+    }
+}
+
+.swiper-button-next.swiper-button-disabled,
+.swiper-button-prev.swiper-button-disabled {
+    opacity: 0.35;
+    pointer-events: none;
+}

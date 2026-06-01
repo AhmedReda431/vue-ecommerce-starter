@@ -1,0 +1,16 @@
+@use "variables" as *;
+@use "swiperGlobalsStyle.scss" as *;
+
+/* ============================================
+   GLOBAL LAYOUT
+   ============================================ */
+html {
+  font-family: "Inter", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+// Vuetify scrollbars
+.v-navigation-drawer,
+.v-main__wrap {
+  @include scrollbar-thin;
+}

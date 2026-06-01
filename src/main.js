@@ -5,8 +5,8 @@ import router from "./router";
 import vuetify from "./plugins/vuetify";
 import "vuetify/styles";
 import "@mdi/font/css/materialdesignicons.css";
-// Import global CSS entry point
-import '@/styles/main.scss';
+import "./assets/animations.css";
+import "@/styles/global.scss"
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
