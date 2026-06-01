@@ -1,4 +1,3 @@
-<
 <template>
   <v-app-bar
     app
@@ -6,244 +5,364 @@
     dark
     elevate-on-scroll
     scroll-behavior="elevate"
+    density="comfortable"
+    class="app-bar-modern"
   >
-    <v-app-bar-nav-icon v-if="mobile" @click="drawer = !drawer" />
+    <v-app-bar-nav-icon v-if="mobile" @click="drawer = !drawer" class="ms-2" />
 
+    <!-- Logo -->
     <v-toolbar-title
-      class="font-weight-bold cursor-pointer"
+      class="font-weight-bold cursor-pointer d-flex align-center"
       @click="$router.push('/')"
     >
-      <v-icon start class="mr-2">mdi-store</v-icon>
-      {{ $t("app.title") }}
+      <v-icon size="28" class="me-2">mdi-store</v-icon>
+      <span class="text-h6 font-weight-bold">{{ $t("app.title") }}</span>
     </v-toolbar-title>
-
-    <v-spacer />
-
-    <!-- Desktop Search -->
-    <v-sheet v-if="!mobile" width="300" class="mr-4">
-      <v-text-field
-        v-model="searchQuery"
-        density="compact"
-        variant="solo"
-        :placeholder="$t('app.search')"
-        prepend-inner-icon="mdi-magnify"
-        hide-details
-        bg-color="rgba(255,255,255,0.15)"
-        class="search-field"
-        @keyup.enter="handleSearch"
-        clearable
-      />
-    </v-sheet>
 
     <!-- Desktop Nav -->
     <template v-if="!mobile">
-      <v-btn variant="text" to="/" prepend-icon="mdi-home">
+      <v-btn
+        variant="text"
+        to="/"
+        class="text-none ms-2"
+        prepend-icon="mdi-home"
+      >
         {{ $t("nav.home") }}
       </v-btn>
-      <v-menu open-on-hover>
+
+      <v-menu open-on-hover offset-y>
         <template v-slot:activator="{ props }">
-          <v-btn variant="text" v-bind="props" prepend-icon="mdi-shopping">
+          <v-btn
+            variant="text"
+            v-bind="props"
+            class="text-none"
+            prepend-icon="mdi-shopping"
+          >
             {{ $t("nav.shop") }}
           </v-btn>
         </template>
-        <v-list density="compact" rounded="lg">
+        <v-list density="compact" rounded="lg" class="pa-2">
           <v-list-item
             to="/products"
             prepend-icon="mdi-view-grid"
             :title="$t('nav.allProducts')"
+            rounded="lg"
           />
           <v-list-item
             to="/products/infinite"
             prepend-icon="mdi-infinity"
             :title="$t('nav.infiniteScroll')"
+            rounded="lg"
           />
           <v-list-item
             to="/carousels"
             prepend-icon="mdi-view-carousel"
             :title="$t('nav.carouselExamples')"
+            rounded="lg"
           />
         </v-list>
       </v-menu>
+
+      <v-btn
+        variant="text"
+        to="/about"
+        class="text-none"
+        prepend-icon="mdi-information"
+      >
+        {{ $t("nav.about") }}
+      </v-btn>
+      <v-btn
+        variant="text"
+        to="/contact"
+        class="text-none"
+        prepend-icon="mdi-email"
+      >
+        {{ $t("nav.contact") }}
+      </v-btn>
+      <v-btn
+        variant="text"
+        to="/faq"
+        class="text-none"
+        prepend-icon="mdi-help-circle"
+      >
+        {{ $t("nav.faq") }}
+      </v-btn>
     </template>
+
+    <v-spacer />
+
+    <!-- Search -->
+    <v-sheet v-if="!mobile" width="320" class="mx-4">
+      <v-text-field
+        v-model="searchQuery"
+        density="compact"
+        variant="tonal"
+        :placeholder="$t('search')"
+        prepend-inner-icon="mdi-magnify"
+        hide-details
+        flat
+        rounded="lg"
+        class="search-modern"
+        @keyup.enter="handleSearch"
+        clearable
+      />
+    </v-sheet>
 
     <v-spacer v-if="!mobile" />
 
-    <!-- Language Switcher -->
-    <v-menu offset-y>
-      <template v-slot:activator="{ props }">
-        <v-btn icon class="mr-2" v-bind="props">
-          <v-icon>mdi-translate</v-icon>
-        </v-btn>
-      </template>
-      <v-list density="compact" rounded="lg">
-        <v-list-item
-          @click="setLocale('en')"
-          :active="locale === 'en'"
-          title="English"
-        />
-        <v-list-item
-          @click="setLocale('ar')"
-          :active="locale === 'ar'"
-          title="العربية"
-        />
-      </v-list>
-    </v-menu>
+    <!-- Actions -->
+    <div class="d-flex align-center gap-2 me-2">
+      <v-menu offset-y>
+        <template v-slot:activator="{ props }">
+          <v-btn icon v-bind="props" variant="text" size="small">
+            <v-icon>mdi-translate</v-icon>
+          </v-btn>
+        </template>
+        <v-list density="compact" rounded="lg">
+          <v-list-item
+            @click="setLocale('en')"
+            :active="locale === 'en'"
+            title="English"
+          />
+          <v-list-item
+            @click="setLocale('ar')"
+            :active="locale === 'ar'"
+            title="العربية"
+          />
+        </v-list>
+      </v-menu>
 
-    <!-- Dark Mode Toggle -->
-    <v-btn
-      icon
-      class="mr-2"
-      @click="themeStore.toggle"
-      :title="themeStore.label"
-    >
-      <v-icon>{{ themeStore.icon }}</v-icon>
-    </v-btn>
-
-    <!-- Cart -->
-    <v-btn icon to="/cart" class="mr-2">
-      <v-badge
-        :content="cartStore.totalItems"
-        color="error"
-        v-if="cartStore.totalItems > 0"
-      >
-        <v-icon>mdi-cart</v-icon>
-      </v-badge>
-      <v-icon v-else>mdi-cart</v-icon>
-    </v-btn>
-
-    <!-- Favorites -->
-    <v-btn icon to="/favorites" class="mr-2" v-if="authStore.isAuthenticated">
-      <v-badge
-        :content="favoritesStore.totalFavorites"
-        color="error"
-        v-if="favoritesStore.totalFavorites > 0"
-      >
-        <v-icon>mdi-heart</v-icon>
-      </v-badge>
-      <v-icon v-else>mdi-heart-outline</v-icon>
-    </v-btn>
-
-    <!-- Auth -->
-    <template v-if="!authStore.isAuthenticated">
-      <v-btn variant="outlined" to="/login" class="mr-2" rounded="lg">
-        {{ $t("nav.login") }}
-      </v-btn>
       <v-btn
-        variant="elevated"
-        color="white"
-        class="text-primary"
-        to="/register"
-        rounded="lg"
+        icon
+        @click="themeStore.toggle"
+        :title="themeStore.label"
+        variant="text"
+        size="small"
       >
-        {{ $t("nav.register") }}
+        <v-icon>{{ themeStore.icon }}</v-icon>
       </v-btn>
-    </template>
 
-    <v-menu v-else>
-      <template v-slot:activator="{ props }">
-        <v-btn icon v-bind="props">
-          <v-avatar size="32" color="white">
-            <v-icon color="primary">mdi-account</v-icon>
-          </v-avatar>
+      <v-btn icon to="/cart" variant="text" size="small">
+        <v-badge
+          :content="cartStore.totalItems"
+          color="error"
+          v-if="cartStore.totalItems > 0"
+          dot
+        >
+          <v-icon>mdi-cart</v-icon>
+        </v-badge>
+        <v-icon v-else>mdi-cart</v-icon>
+      </v-btn>
+
+      <v-btn
+        icon
+        to="/favorites"
+        variant="text"
+        size="small"
+        v-if="authStore.isAuthenticated"
+      >
+        <v-badge
+          :content="favoritesStore.totalFavorites"
+          color="error"
+          v-if="favoritesStore.totalFavorites > 0"
+          dot
+        >
+          <v-icon>mdi-heart</v-icon>
+        </v-badge>
+        <v-icon v-else>mdi-heart-outline</v-icon>
+      </v-btn>
+
+      <template v-if="!authStore.isAuthenticated">
+        <v-btn
+          variant="outlined"
+          to="/login"
+          class="text-none"
+          rounded="lg"
+          size="small"
+        >
+          {{ $t("nav.login") }}
+        </v-btn>
+        <v-btn
+          variant="elevated"
+          color="white"
+          class="text-primary text-none"
+          to="/register"
+          rounded="lg"
+          size="small"
+        >
+          {{ $t("nav.register") }}
         </v-btn>
       </template>
-      <v-list rounded="lg">
-        <v-list-item to="/profile" prepend-icon="mdi-account-circle">
-          <v-list-item-title>{{ $t("nav.profile") }}</v-list-item-title>
-        </v-list-item>
-        <v-list-item to="/favorites" prepend-icon="mdi-heart">
-          <v-list-item-title>{{ $t("nav.favorites") }}</v-list-item-title>
-        </v-list-item>
-        <v-divider />
-        <v-list-item
-          @click="themeStore.toggle"
-          prepend-icon="mdi-theme-light-dark"
-        >
-          <v-list-item-title>{{ themeStore.label }}</v-list-item-title>
-        </v-list-item>
-        <v-divider />
-        <v-list-item
-          @click="handleLogout"
-          prepend-icon="mdi-logout"
-          color="error"
-        >
-          <v-list-item-title>{{ $t("nav.logout") }}</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-menu>
+
+      <v-menu v-else offset-y>
+        <template v-slot:activator="{ props }">
+          <v-btn icon v-bind="props" variant="text">
+            <v-avatar size="32" color="white">
+              <v-icon color="primary">mdi-account</v-icon>
+            </v-avatar>
+          </v-btn>
+        </template>
+        <v-list rounded="lg" density="compact" class="pa-2">
+          <v-list-item
+            to="/profile"
+            prepend-icon="mdi-account-circle"
+            :title="$t('nav.profile')"
+            rounded="lg"
+          />
+          <v-list-item
+            to="/favorites"
+            prepend-icon="mdi-heart"
+            :title="$t('nav.favorites')"
+            rounded="lg"
+          />
+          <v-divider class="my-2" />
+          <v-list-item
+            @click="themeStore.toggle"
+            prepend-icon="mdi-theme-light-dark"
+            :title="themeStore.label"
+            rounded="lg"
+          />
+          <v-divider class="my-2" />
+          <v-list-item
+            @click="handleLogout"
+            prepend-icon="mdi-logout"
+            :title="$t('nav.logout')"
+            rounded="lg"
+            color="error"
+          />
+        </v-list>
+      </v-menu>
+    </div>
   </v-app-bar>
 
-  <!-- Mobile Navigation Drawer -->
+  <!-- Mobile Drawer -->
   <v-navigation-drawer
     v-model="drawer"
     temporary
     v-if="mobile"
     :location="isRtl ? 'right' : 'left'"
+    class="mobile-drawer"
   >
-    <v-list>
-      <v-list-item to="/" prepend-icon="mdi-home" :title="$t('nav.home')" />
+    <div class="pa-4">
+      <div class="d-flex align-center mb-4">
+        <v-icon size="32" color="primary" class="me-3">mdi-store</v-icon>
+        <span class="text-h6 font-weight-bold">{{ $t("app.title") }}</span>
+      </div>
+
+      <v-text-field
+        v-model="searchQuery"
+        density="compact"
+        variant="outlined"
+        :placeholder="$t('app.search')"
+        prepend-inner-icon="mdi-magnify"
+        hide-details
+        rounded="lg"
+        class="mb-4"
+        @keyup.enter="handleSearch"
+        clearable
+      />
+    </div>
+
+    <v-list density="compact" class="px-2">
+      <v-list-item
+        to="/"
+        prepend-icon="mdi-home"
+        :title="$t('nav.home')"
+        rounded="lg"
+      />
       <v-list-item
         to="/products"
         prepend-icon="mdi-shopping"
         :title="$t('nav.allProducts')"
+        rounded="lg"
       />
       <v-list-item
         to="/products/infinite"
         prepend-icon="mdi-infinity"
         :title="$t('nav.infiniteScroll')"
+        rounded="lg"
       />
       <v-list-item
         to="/carousels"
         prepend-icon="mdi-view-carousel"
         :title="$t('nav.carouselExamples')"
+        rounded="lg"
       />
+      <v-divider class="my-2" />
+      <v-list-item
+        to="/about"
+        prepend-icon="mdi-information"
+        :title="$t('nav.about')"
+        rounded="lg"
+      />
+      <v-list-item
+        to="/contact"
+        prepend-icon="mdi-email"
+        :title="$t('nav.contact')"
+        rounded="lg"
+      />
+      <v-list-item
+        to="/faq"
+        prepend-icon="mdi-help-circle"
+        :title="$t('nav.faq')"
+        rounded="lg"
+      />
+      <v-divider class="my-2" />
       <v-list-item
         to="/cart"
         prepend-icon="mdi-cart"
         :title="`${$t('nav.cart')} (${cartStore.totalItems})`"
+        rounded="lg"
       />
       <v-list-item
         v-if="authStore.isAuthenticated"
         to="/favorites"
         prepend-icon="mdi-heart"
         :title="$t('nav.favorites')"
+        rounded="lg"
       />
       <v-list-item
         v-if="authStore.isAuthenticated"
         to="/profile"
         prepend-icon="mdi-account"
         :title="$t('nav.profile')"
+        rounded="lg"
       />
-      <v-divider />
+      <v-divider class="my-2" />
       <v-list-item
         @click="setLocale(locale === 'en' ? 'ar' : 'en')"
         prepend-icon="mdi-translate"
         :title="locale === 'en' ? 'العربية' : 'English'"
+        rounded="lg"
       />
-      <v-divider />
       <v-list-item
         @click="themeStore.toggle"
         prepend-icon="mdi-theme-light-dark"
         :title="themeStore.label"
+        rounded="lg"
       />
-      <v-divider />
+      <v-divider class="my-2" />
       <v-list-item
         v-if="!authStore.isAuthenticated"
         to="/login"
         prepend-icon="mdi-login"
         :title="$t('nav.login')"
+        rounded="lg"
       />
       <v-list-item
         v-if="!authStore.isAuthenticated"
         to="/register"
         prepend-icon="mdi-account-plus"
         :title="$t('nav.register')"
+        rounded="lg"
       />
       <v-list-item
         v-if="authStore.isAuthenticated"
         @click="handleLogout"
         prepend-icon="mdi-logout"
         :title="$t('nav.logout')"
+        rounded="lg"
+        color="error"
       />
     </v-list>
   </v-navigation-drawer>
@@ -253,6 +372,7 @@
 import { ref } from "vue";
 import { useDisplay } from "vuetify";
 import { useRouter } from "vue-router";
+import { useI18n } from "vue-i18n";
 import { useAuthStore } from "@/stores/auth";
 import { useCartStore } from "@/stores/cart";
 import { useFavoritesStore } from "@/stores/favorites";
@@ -262,6 +382,7 @@ import Swal from "sweetalert2";
 
 const { mobile } = useDisplay();
 const router = useRouter();
+const { t } = useI18n();
 const authStore = useAuthStore();
 const cartStore = useCartStore();
 const favoritesStore = useFavoritesStore();
@@ -274,6 +395,7 @@ const searchQuery = ref("");
 const handleSearch = () => {
   if (searchQuery.value.trim()) {
     router.push({ path: "/products", query: { search: searchQuery.value } });
+    drawer.value = false;
   }
 };
 
@@ -292,3 +414,19 @@ const handleLogout = async () => {
   }
 };
 </script>
+
+<style scoped>
+.app-bar-modern {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.gap-2 {
+  gap: 8px;
+}
+
+.mobile-drawer {
+  border-radius: 0 16px 16px 0;
+}
+html.rtl .mobile-drawer {
+  border-radius: 16px 0 0 16px;
+}
+</style>

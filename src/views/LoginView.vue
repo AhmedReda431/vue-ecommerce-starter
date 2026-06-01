@@ -23,7 +23,7 @@
               >
                 <v-icon size="80" class="mb-6 animate-float">mdi-store</v-icon>
                 <h2 class="text-h4 font-weight-bold mb-4 text-center">
-                  {{ $t('auth.welcome_back') }}
+                  {{ $t('welcome back') }}
                 </h2>
                 <p class="text-body-1 text-center opacity-90">
                   Sign in to access your account and explore amazing products.

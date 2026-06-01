@@ -1,34 +1,75 @@
 {
-    "app": {
-        "title": "A.R Shop",
-        "search": "Search products..."
-    },
     "nav": {
-        "home": "Home",
-        "shop": "Shop",
-        "allProducts": "All Products",
-        "infiniteScroll": "Infinite Scroll",
-        "carouselExamples": "Carousel Examples",
-        "cart": "Cart",
-        "favorites": "Favorites",
-        "profile": "Profile",
+        "about": "About",
+        "contact": "Contact",
+        "faq": "FAQ",
         "login": "Login",
         "register": "Register",
-        "logout": "Logout"
+        "home":"Home",
+        "shop":"Shop"
     },
-    "theme": {
-        "lightMode": "Light Mode",
-        "darkMode": "Dark Mode",
-        "toggle": "Toggle theme"
+    "about": {
+        "tagline": "Since 2020",
+        "title": "About A.R Shop",
+        "subtitle": "We are a modern e-commerce platform dedicated to delivering quality products with an exceptional shopping experience.",
+        "missionTitle": "Our Mission",
+        "missionText": "To provide customers with a seamless, trustworthy, and enjoyable online shopping journey.",
+        "visionTitle": "Our Vision",
+        "visionText": "To become the leading destination for premium fashion and lifestyle products in the region.",
+        "valuesTitle": "Our Values",
+        "valuesText": "Quality first, customer obsession, transparency, and continuous innovation.",
+        "products": "Products",
+        "customers": "Happy Customers",
+        "satisfaction": "Satisfaction Rate",
+        "support": "Support",
+        "teamTitle": "Meet the Team",
+        "member1Name": "Ahmed Reda",
+        "member1Role": "Founder & CEO",
+        "member2Name": "Sarah Ali",
+        "member2Role": "Head of Design",
+        "member3Name": "Omar Khaled",
+        "member3Role": "Lead Developer",
+        "member4Name": "Nour Hassan",
+        "member4Role": "Marketing Manager"
     },
-    "auth": {
-        "logoutConfirmTitle": "Logout?",
-        "logoutConfirmText": "Are you sure you want to logout?",
-        "logoutConfirmButton": "Yes, logout",
-        "welcome_back": "Welcome Back"
+    "contact": {
+        "title": "Contact Us",
+        "subtitle": "Have a question or feedback? We'd love to hear from you.",
+        "addressTitle": "Visit Us",
+        "addressText": "123 Commerce St, Cairo, Egypt",
+        "phoneTitle": "Call Us",
+        "phoneText": "+20 123 456 7890",
+        "emailTitle": "Email Us",
+        "emailText": "support@arshop.com",
+        "formName": "Full Name",
+        "formEmail": "Email Address",
+        "formSubject": "Subject",
+        "formMessage": "Your Message",
+        "formSubmit": "Send Message",
+        "required": "This field is required",
+        "invalidEmail": "Please enter a valid email",
+        "successTitle": "Message Sent!",
+        "successText": "We will get back to you within 24 hours."
     },
-    "lang": {
-        "english": "English",
-        "arabic": "العربية"
+    "faq": {
+        "title": "Frequently Asked Questions",
+        "subtitle": "Find answers to common questions below.",
+        "search": "Search questions...",
+        "noResults": "No questions found matching your search.",
+        "ctaTitle": "Still have questions?",
+        "ctaText": "Our support team is ready to help you 24/7.",
+        "ctaButton": "Contact Support",
+        "q1": "How do I place an order?",
+        "a1": "Browse products, add items to your cart, and proceed to checkout. You can pay securely with multiple payment options.",
+        "q2": "What payment methods do you accept?",
+        "a2": "We accept credit/debit cards, Vodafone Cash, and cash on delivery for eligible areas.",
+        "q3": "How long does shipping take?",
+        "a3": "Standard delivery takes 2-5 business days. Express delivery is available for select locations.",
+        "q4": "Can I return or exchange an item?",
+        "a4": "Yes, we offer a 14-day return policy for unused items in original packaging.",
+        "q5": "How do I track my order?",
+        "a5": "Once shipped, you will receive an email with a tracking link to monitor your delivery status.",
+        "q6": "Is my personal information secure?",
+        "a6": "Absolutely. We use industry-standard encryption and never share your data with third parties."
     }
 }

@@ -73,6 +73,21 @@ const routes = [
     name: "carousels",
     component: () => import("@/views/CarouselExamplesView.vue"),
   },
+  {
+    path: "/about",
+    name: "About",
+    component: () => import("@/views/AboutView.vue"),
+  },
+  {
+    path: "/contact",
+    name: "Contact",
+    component: () => import("@/views/ContactView.vue"),
+  },
+  {
+    path: "/faq",
+    name: "FAQ",
+    component: () => import("@/views/FAQView.vue"),
+  },
 ];
 
 const router = createRouter({
