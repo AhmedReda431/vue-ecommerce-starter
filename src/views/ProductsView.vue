@@ -562,16 +562,35 @@ const resetFilters = () => {
 watch(
   () => route.query.search,
   (newQuery) => {
-    if (newQuery) {
+    let queryParamCategory = route?.query?.category;
+    if (newQuery && !queryParamCategory) {
       productsStore.fetchProducts({ q: newQuery, limit: 100 });
     }
   },
   { immediate: true },
 );
 
-onMounted(() => {
-  productsStore.fetchCategories();
-  if (!route.query.search) {
+onMounted(async () => {
+  await productsStore.fetchCategories();
+
+  let queryParamCategory = route?.query?.category;
+  let normalized = String(queryParamCategory).toLowerCase().replace("-", "").trim();
+  console.log('normalized' , normalized);
+  
+  let queryCategory = productsStore.categories.find(
+    (c) =>
+      c.slug?.toLowerCase().replace("-", "").trim() === normalized ||
+      c.name?.toLowerCase().replace("-", "").trim() === normalized,
+  );
+  console.log('queryCategory' , queryCategory);
+  
+  if (productsStore?.categories?.length && queryParamCategory) {
+    if (queryCategory) {
+      localFilters.category = queryCategory;
+      appliedFilters.category = queryCategory;
+      applyFilters();
+    }
+  } else if (!route.query.search && !queryParamCategory && queryCategory) {
     productsStore.fetchProducts({ limit: 100 });
   }
 });

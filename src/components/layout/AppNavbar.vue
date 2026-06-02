@@ -97,7 +97,7 @@
         v-model="searchQuery"
         density="compact"
         variant="tonal"
-        :placeholder="$t('search')"
+        :placeholder="$t('Search for products...')"
         prepend-inner-icon="mdi-magnify"
         hide-details
         flat

@@ -6,7 +6,11 @@
         "login": "Login",
         "register": "Register",
         "home":"Home",
-        "shop":"Shop"
+        "shop":"Shop",
+        "allProducts":"All Products",
+        "infiniteScroll":"Infinite Scroll",
+        "carouselExamples":"Carousel Examples",
+        "Search for products...":"Search for products..."
     },
     "about": {
         "tagline": "Since 2020",
