@@ -274,14 +274,14 @@ const testimonialSlides = ref([
 ]);
 
 const brandSlides = ref([
-  { image: "https://via.placeholder.com/150x80?text=Apple" },
-  { image: "https://via.placeholder.com/150x80?text=Samsung" },
-  { image: "https://via.placeholder.com/150x80?text=Nike" },
-  { image: "https://via.placeholder.com/150x80?text=Adidas" },
-  { image: "https://via.placeholder.com/150x80?text=Sony" },
-  { image: "https://via.placeholder.com/150x80?text=LG" },
-  { image: "https://via.placeholder.com/150x80?text=Dell" },
-  { image: "https://via.placeholder.com/150x80?text=HP" },
+  { image: "https://i.pravatar.cc/150?img=1" },
+  { image: "https://i.pravatar.cc/150?img=2" },
+  { image: "https://i.pravatar.cc/150?img=3" },
+  { image: "https://i.pravatar.cc/150?img=4" },
+  { image: "https://i.pravatar.cc/150?img=5" },
+  { image: "https://i.pravatar.cc/150?img=6" },
+  { image: "https://i.pravatar.cc/150?img=7" },
+  { image: "https://i.pravatar.cc/150?img=8" },
 ]);
 
 // const onSlideChange = (index) => {
