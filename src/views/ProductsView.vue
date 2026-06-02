@@ -573,24 +573,31 @@ watch(
 onMounted(async () => {
   await productsStore.fetchCategories();
 
-  let queryParamCategory = route?.query?.category;
-  let normalized = String(queryParamCategory).toLowerCase().replace("-", "").trim();
-  console.log('normalized' , normalized);
-  
-  let queryCategory = productsStore.categories.find(
-    (c) =>
-      c.slug?.toLowerCase().replace("-", "").trim() === normalized ||
-      c.name?.toLowerCase().replace("-", "").trim() === normalized,
+  const queryCategoryParam = route.query?.category;
+
+  const normalize = (value) =>
+    String(value || "")
+      .toLowerCase()
+      .replace("-", "")
+      .trim();
+
+  const queryCategory = productsStore.categories.find(
+    (category) =>
+      normalize(category.slug) === normalize(queryCategoryParam) ||
+      normalize(category.name) === normalize(queryCategoryParam),
   );
-  console.log('queryCategory' , queryCategory);
-  
-  if (productsStore?.categories?.length && queryParamCategory) {
-    if (queryCategory) {
-      localFilters.category = queryCategory;
-      appliedFilters.category = queryCategory;
-      applyFilters();
-    }
-  } else if (!route.query.search && !queryParamCategory && queryCategory) {
+
+  if (queryCategoryParam && queryCategory) {
+    localFilters.category = queryCategory;
+    appliedFilters.category = queryCategory;
+    applyFilters();
+    return;
+  }
+
+  const hasSearch = !!route.query.search;
+  const hasCategory = !!route.query.category;
+
+  if (!hasSearch && !hasCategory) {
     productsStore.fetchProducts({ limit: 100 });
   }
 });
