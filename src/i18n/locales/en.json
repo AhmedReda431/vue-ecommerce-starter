@@ -5,12 +5,12 @@
         "faq": "FAQ",
         "login": "Login",
         "register": "Register",
-        "home":"Home",
-        "shop":"Shop",
-        "allProducts":"All Products",
-        "infiniteScroll":"Infinite Scroll",
-        "carouselExamples":"Carousel Examples",
-        "Search for products...":"Search for products..."
+        "home": "Home",
+        "shop": "Shop",
+        "allProducts": "All Products",
+        "infiniteScroll": "Infinite Scroll",
+        "carouselExamples": "Carousel Examples",
+        "Search for products...": "Search for products..."
     },
     "about": {
         "tagline": "Since 2020",
@@ -75,5 +75,10 @@
         "a5": "Once shipped, you will receive an email with a tracking link to monitor your delivery status.",
         "q6": "Is my personal information secure?",
         "a6": "Absolutely. We use industry-standard encryption and never share your data with third parties."
+    },
+    "auth": {
+        "logoutConfirmTitle": "Logout!",
+        "logoutConfirmText": "Are You Sure You Want To Logout ?",
+        "logoutConfirmButton": "Yes , Logout"
     }
 }

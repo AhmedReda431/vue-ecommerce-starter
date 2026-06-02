@@ -407,7 +407,9 @@ const handleLogout = async () => {
 
   if (result.isConfirmed) {
     await authStore.logout();
-    router.push("/");
+    router.push("/").then(() => {
+      router.go(0);
+    });
   }
 };
 </script>
@@ -426,7 +428,7 @@ const handleLogout = async () => {
 html.rtl .mobile-drawer {
   border-radius: 16px 0 0 16px;
 }
-.brand-title{
+.brand-title {
   min-inline-size: 150px;
 }
 </style>

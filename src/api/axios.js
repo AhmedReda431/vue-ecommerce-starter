@@ -10,7 +10,15 @@ const api = axios.create({
   },
 });
 
-const PUBLIC_ENDPOINTS = ["/auth/login", "/users/add"];
+const PUBLIC_ENDPOINTS = [
+  "/auth/login",
+  "/users/add",
+  "/products", // GET /products, /products/search, /products/categories
+  "/products/search",
+  "/products/categories",
+  "/products/category",
+  "/category", // if your store uses /category-list or similar
+];
 
 api.interceptors.request.use(
   (config) => {
