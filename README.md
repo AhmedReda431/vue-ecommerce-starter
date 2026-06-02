@@ -42,7 +42,7 @@ We solved all of them. So you don't have to.
 
 | Feature                | How It Works                                                   |
 | ---------------------- | -------------------------------------------------------------- |
-| **Authentication**     | JWT login/register with auto-token refresh, protected routes   |
+| **Authentication**     | JWT login/register with **AES-encrypted cookies**, 2-hour session expiration, auto-logout, protected routes |
 | **Product Catalog**    | Real API integration (DummyJSON), category filtering, search   |
 | **Shopping Cart**      | LocalStorage persistence, quantity management, stock awareness |
 | **Favorites/Wishlist** | Heart toggle on every card, dedicated page                     |
@@ -74,9 +74,10 @@ npm install
 # 3. Set your scene
 cp .env.example .env
 # Edit .env: VITE_API_URL=https://your-api.com
+# Edit .env: VITE_APP_CRYPTO_KEY=your-32-char-secret-key
 
 # 4. Start the show
 npm run dev
 # Open http://localhost:3000
-```
+
 ## Ahmed Reda

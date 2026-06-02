@@ -1,35 +1,41 @@
 import axios from "axios";
 import Swal from "sweetalert2";
-import { useAuthStore } from "@/stores/auth";
-
+import { session } from "@/utils/session";
+const Language = localStorage.getItem("locale") || "en";
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL || "https://dummyjson.com",
   headers: {
     "Content-Type": "application/json",
+    "Accept-lang": Language,
   },
 });
 
-// Request interceptor
+const PUBLIC_ENDPOINTS = ["/auth/login", "/users/add"];
+
 api.interceptors.request.use(
   (config) => {
-    const authStore = useAuthStore();
-    if (authStore.token) {
-      config.headers.Authorization = `Bearer ${authStore.token}`;
+    const url = String(config.url || "");
+    const isPublic = PUBLIC_ENDPOINTS.some((ep) => url.includes(ep));
+
+    if (!isPublic && !session.isValid()) {
+      return Promise.reject(new Error("Session expired. Please login again."));
+    }
+
+    const saved = session.get();
+    if (saved?.token) {
+      config.headers.Authorization = `Bearer ${saved.token}`;
     }
     return config;
   },
   (error) => Promise.reject(error),
 );
 
-// Response interceptor
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
     const { response } = error;
-
     if (response?.status === 401) {
-      const authStore = useAuthStore();
-      authStore.logout();
+      session.remove();
       window.location.href = "/login";
       Swal.fire({
         icon: "warning",
@@ -37,7 +43,6 @@ api.interceptors.response.use(
         text: "Please login again",
       });
     }
-
     if (response?.status >= 500) {
       Swal.fire({
         icon: "error",
@@ -45,7 +50,6 @@ api.interceptors.response.use(
         text: "Something went wrong. Please try again later.",
       });
     }
-
     return Promise.reject(error);
   },
 );

@@ -4,9 +4,7 @@ import App from "./App.vue";
 import router from "./router";
 import vuetify from "./plugins/vuetify";
 
-// Vuetify styles MUST be imported
 import "vuetify/styles";
-
 import "@mdi/font/css/materialdesignicons.css";
 import "./assets/animations.css";
 import "@/styles/global.scss";
@@ -22,6 +20,11 @@ import i18n from "./i18n";
 const app = createApp(App);
 app.use(i18n);
 app.use(createPinia());
+
+import { useAuthStore } from "@/stores/auth";
+const authStore = useAuthStore();
+authStore.initAuth();
+
 app.use(router);
 app.use(vuetify);
 

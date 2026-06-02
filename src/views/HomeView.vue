@@ -284,9 +284,9 @@ const brandSlides = ref([
   { image: "https://via.placeholder.com/150x80?text=HP" },
 ]);
 
-const onSlideChange = (index) => {
-  console.log("Hero slide changed to:", index);
-};
+// const onSlideChange = (index) => {
+//   console.log("Hero slide changed to:", index);
+// };
 
 onMounted(async () => {
   await productsStore.fetchProducts({ limit: 20 });
