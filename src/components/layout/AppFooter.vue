@@ -93,20 +93,61 @@
           >
         </v-col>
       </v-row>
+      <div
+        class="scroll-to-top-button background-primary white cursor-pointer"
+        @click="scrollToTop"
+        v-show="isVisible"
+      >
+        <v-icon>mdi-arrow-up-bold</v-icon>
+      </div>
     </v-container>
   </v-footer>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
 import { toast } from "@/plugins/sweetalert";
 
 const email = ref("");
-
+const isVisible = ref(false);
 const subscribe = () => {
   if (email.value) {
     toast.fire({ icon: "success", title: "Subscribed successfully!" });
     email.value = "";
   }
 };
+const scrollToTop = () => {
+  scrollTo({
+    top: 0,
+    left: 0,
+    behavior: "smooth",
+  });
+};
+// Check scroll position
+const handleScroll = () => {
+  const currentScroll = window.scrollY || document.documentElement.scrollTop;
+  isVisible.value = currentScroll > 500;
+};
+onMounted(() => {
+  window.addEventListener("scroll", handleScroll);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("scroll", handleScroll);
+});
 </script>
+<style lang="scss" scoped>
+.scroll-to-top-button i{
+  position: fixed;
+  inset-inline-end: 40px;
+  inset-block-end: 40px;
+  z-index: 99999;
+  background: rgb(var(--v-theme-primary));
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>
