@@ -68,3 +68,7 @@ html.rtl {
         width: 93%;
     }
 }
+.swiper-pagination-bullet.swiper-pagination-bullet-active-main , .swiper-pagination-bullet.swiper-pagination-bullet-active{
+    background-color: #cccccc92 !important;
+    border: 1px solid #eeeeee7e;
+}

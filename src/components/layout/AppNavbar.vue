@@ -1,7 +1,7 @@
 <template>
   <v-app-bar
     app
-    :color="themeStore.isDark ? 'grey-darken-4' : 'primary'"
+    :color="themeStore.isDark ? 'grey-darken-4' : 'white'"
     dark
     elevate-on-scroll
     scroll-behavior="elevate"
@@ -12,11 +12,11 @@
 
     <!-- Logo -->
     <v-toolbar-title
-      class="font-weight-bold cursor-pointer d-flex align-center"
+      class="font-weight-bold cursor-pointer d-flex align-center brand-title"
       @click="$router.push('/')"
     >
       <v-icon size="28" class="me-2">mdi-store</v-icon>
-      <span class="text-h6 font-weight-bold">{{ $t("app.title") }}</span>
+      <span class="text-h6 font-weight-bold">{{ $t("A-R Shop") }}</span>
     </v-toolbar-title>
 
     <!-- Desktop Nav -->
@@ -142,12 +142,11 @@
         <v-icon>{{ themeStore.icon }}</v-icon>
       </v-btn>
 
-      <v-btn icon to="/cart" variant="text" size="small">
+      <v-btn icon to="/cart" variant="text">
         <v-badge
           :content="cartStore.totalItems"
           color="error"
           v-if="cartStore.totalItems > 0"
-          size="small"
         >
           <v-icon>mdi-cart</v-icon>
         </v-badge>
@@ -158,14 +157,12 @@
         icon
         to="/favorites"
         variant="text"
-        size="small"
         v-if="authStore.isAuthenticated"
       >
         <v-badge
           :content="favoritesStore.totalFavorites"
           color="error"
           v-if="favoritesStore.totalFavorites > 0"
-          dot
         >
           <v-icon>mdi-heart</v-icon>
         </v-badge>
@@ -428,5 +425,8 @@ const handleLogout = async () => {
 }
 html.rtl .mobile-drawer {
   border-radius: 16px 0 0 16px;
+}
+.brand-title{
+  min-inline-size: 150px;
 }
 </style>

@@ -19,35 +19,50 @@ export default createVuetify({
     fallback: "en",
     messages: { en, ar },
   },
-  theme: {
-    defaultTheme: localStorage.getItem("theme") || "light",
-    themes: {
-      light: {
-        colors: {
-          primary: "#1976D2",
-          secondary: "#424242",
-          accent: "#82B1FF",
-          error: "#FF5252",
-          info: "#2196F3",
-          success: "#4CAF50",
-          warning: "#FFC107",
-          background: "#FFFFFF",
-          surface: "#FFFFFF",
-        },
+  ttheme: {
+  defaultTheme: localStorage.getItem("theme") || "light",
+  themes: {
+    light: {
+      dark: false,
+      colors: {
+        primary: "#2563EB",     // Modern blue
+        secondary: "#64748B",   // Slate
+        accent: "#3B82F6",
+        success: "#22C55E",
+        info: "#0EA5E9",
+        warning: "#F59E0B",
+        error: "#EF4444",
+
+        background: "#F8FAFC",
+        surface: "#FFFFFF",
+        "surface-variant": "#F1F5F9",
+
+        "on-primary": "#FFFFFF",
+        "on-surface": "#0F172A",
+        "on-background": "#0F172A",
       },
-      dark: {
-        colors: {
-          primary: "#90CAF9",
-          secondary: "#B0BEC5",
-          accent: "#448AFF",
-          error: "#EF5350",
-          info: "#42A5F5",
-          success: "#66BB6A",
-          warning: "#FFCA28",
-          background: "#121212",
-          surface: "#1E1E1E",
-        },
+    },
+
+    dark: {
+      dark: true,
+      colors: {
+        primary: "#60A5FA",
+        secondary: "#94A3B8",
+        accent: "#3B82F6",
+        success: "#4ADE80",
+        info: "#38BDF8",
+        warning: "#FBBF24",
+        error: "#F87171",
+
+        background: "#0F172A",
+        surface: "#1E293B",
+        "surface-variant": "#334155",
+
+        "on-primary": "#FFFFFF",
+        "on-surface": "#F8FAFC",
+        "on-background": "#F8FAFC",
       },
     },
   },
+}
 });

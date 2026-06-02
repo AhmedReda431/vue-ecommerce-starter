@@ -24,15 +24,18 @@
       :modules="[Navigation, Pagination, Autoplay]"
       :slides-per-view="slidesPerView"
       :space-between="16"
-      
-      :autoplay="false"
+      :autoplay="{
+        delay: 4000,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+      }"
       :grab-cursor="true"
       :touch-ratio="1"
       :simulate-touch="true"
       :allow-touch-move="true"
       :breakpoints="breakpoints"
       @swiper="onSwiper"
-      :loop="false"
+      :loop="true"
       :dir="swiperDir"
       class="product-swiper"
     >

@@ -27,7 +27,7 @@
           </v-tabs>
 
           <v-window v-model="tab" class="mt-4">
-            <v-window-item value="profile">
+            <v-window-item value="profile" class="pt-3">
               <v-form>
                 <v-text-field
                   label="Full Name"
@@ -53,7 +53,7 @@
               </v-form>
             </v-window-item>
 
-            <v-window-item value="orders">
+            <v-window-item value="orders" class="pt-3">
               <v-list>
                 <v-list-item v-for="order in orders" :key="order.id">
                   <v-list-item-title>Order #{{ order.id }}</v-list-item-title>
@@ -67,7 +67,7 @@
               </v-list>
             </v-window-item>
 
-            <v-window-item value="settings">
+            <v-window-item value="settings" class="pt-3">
               <v-list>
                 <v-list-item title="Change Password" prepend-icon="mdi-lock" />
                 <v-list-item title="Notifications" prepend-icon="mdi-bell" />

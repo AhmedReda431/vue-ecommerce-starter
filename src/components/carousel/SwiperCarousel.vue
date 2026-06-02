@@ -203,7 +203,7 @@ const swiperDir = computed(() => document.documentElement.dir || "ltr");
 
 .main-swiper {
   width: 100%;
-  border-radius: 16px;
+  border-radius: 0px;
   overflow: hidden;
 }
 

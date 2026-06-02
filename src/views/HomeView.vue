@@ -3,7 +3,7 @@
     <!-- Hero Carousel with Swiper -->
     <SwiperCarousel
       :slides="heroSlides"
-      :autoplay="{ delay: 6000, disableOnInteraction: false }"
+      :autoplay="{ delay: 60000, disableOnInteraction: false }"
       :pagination="{ clickable: true, dynamicBullets: true }"
       :navigation="true"
       effect="slide"
@@ -43,7 +43,7 @@
                       >
                         {{ slide.buttonText }}
                       </v-btn>
-                      <v-btn
+                      <!-- <v-btn
                         variant="outlined"
                         color="white"
                         size="x-large"
@@ -51,7 +51,7 @@
                         prepend-icon="mdi-play-circle"
                       >
                         Watch Video
-                      </v-btn>
+                      </v-btn> -->
                     </div>
                   </div>
                 </v-col>

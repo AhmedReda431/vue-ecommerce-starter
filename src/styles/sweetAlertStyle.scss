@@ -1,0 +1,12 @@
+.swal2-confirm,
+.swal2-cancel {
+    color: #fff;
+}
+html.dark {
+    .swal2-container {
+        .swal2-popup.swal2-modal.swal2-icon-warning.swal2-show {
+            background: rgb(var(--v-theme-surface-variant));
+            color: #fff;
+        }
+    }
+}

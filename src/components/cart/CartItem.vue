@@ -1,16 +1,16 @@
 <template>
   <v-list-item class="px-0 py-4">
     <template v-slot:prepend>
-      <v-avatar rounded size="80" class="mr-4">
+      <v-avatar rounded size="80" class="mr-4 cursor-pointer" @click="$router.push(`/products/${item?.id}`)">
         <v-img :src="item.image || 'https://via.placeholder.com/80'" cover />
       </v-avatar>
     </template>
 
-    <v-list-item-title class="font-weight-bold text-wrap">
+    <v-list-item-title class="font-weight-bold text-wrap cursor-pointer" @click="$router.push(`/products/${item?.id}`)">
       {{ item.name }}
     </v-list-item-title>
 
-    <v-list-item-subtitle class="mt-1">
+    <v-list-item-subtitle class="mt-1" @click="$router.push(`/products/${item?.id}`)">
       <span class="text-primary font-weight-bold"
         >${{ formatPrice(item.price) }}</span
       >

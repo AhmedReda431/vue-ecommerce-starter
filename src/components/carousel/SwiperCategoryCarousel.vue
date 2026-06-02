@@ -24,8 +24,7 @@
       :modules="[Navigation, Autoplay]"
       :slides-per-view="slidesPerView"
       :space-between="16"
-      
-      :autoplay="false"
+      :autoplay="{ delay: 3000, disableOnInteraction: false }"
       :grab-cursor="true"
       :touch-ratio="1"
       :simulate-touch="true"
