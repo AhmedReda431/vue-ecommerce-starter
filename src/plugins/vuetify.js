@@ -19,7 +19,7 @@ export default createVuetify({
     fallback: "en",
     messages: { en, ar },
   },
-  ttheme: {
+  theme: {
   defaultTheme: localStorage.getItem("theme") || "light",
   themes: {
     light: {
